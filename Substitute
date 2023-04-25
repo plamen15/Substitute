@@ -1,0 +1,50 @@
+import java.util.Scanner;
+
+public class Substitute_06 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int k = Integer.parseInt(scanner.nextLine());
+        int l = Integer.parseInt(scanner.nextLine());
+        int m = Integer.parseInt(scanner.nextLine());
+        int n = Integer.parseInt(scanner.nextLine());
+
+        int counter = 0;
+        boolean noMoreSubs = false;
+
+        for (int firstNumFirstDig = k; firstNumFirstDig <= 8; firstNumFirstDig++) {
+            for (int firstNumSecondDig = 9; firstNumSecondDig >= l; firstNumSecondDig--) {
+                for (int secondNumFirstDig = m; secondNumFirstDig <= 8; secondNumFirstDig++) {
+                    for (int secondNumSecondDig = 9; secondNumSecondDig >= n; secondNumSecondDig--) {
+
+                        boolean isValid = firstNumFirstDig % 2 == 0 && firstNumSecondDig % 2 != 0 &&
+                                secondNumFirstDig % 2 == 0 && secondNumSecondDig % 2 != 0 && firstNumFirstDig != 0 && secondNumFirstDig != 0;
+
+                        int firstSub = Integer.parseInt(String.valueOf(firstNumFirstDig) + String.valueOf(firstNumSecondDig));
+                        int secondSub = Integer.parseInt(String.valueOf(secondNumFirstDig) + String.valueOf(secondNumSecondDig));
+
+                        if (isValid && firstSub == secondSub) {
+                            System.out.println("Cannot change the same player.");
+                        } else if (isValid && firstSub != secondSub) {
+                            counter++;
+                            System.out.printf("%d - %d%n", firstSub, secondSub);
+                        }
+                        if (counter >= 6) {
+                            noMoreSubs = true;
+                            break;
+                        }
+                    }
+                    if (noMoreSubs) {
+                        break;
+                    }
+                }
+                if (noMoreSubs) {
+                    break;
+                }
+            }
+            if (noMoreSubs) {
+                break;
+            }
+        }
+    }
+}
